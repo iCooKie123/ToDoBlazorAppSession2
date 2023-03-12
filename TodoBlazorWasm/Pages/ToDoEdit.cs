@@ -16,12 +16,15 @@ namespace TodoBlazorWasm.Pages
         public HttpClient HttpClient { get; set; }
 
         public TodoItemModel TodoItem { get; set; } = new TodoItemModel();
-
+        private bool showDeadline = false;
+        private bool showDescription = false;
         protected override async Task OnInitializedAsync()
         {
             if (Id != "new")
             {
                 TodoItem = await HttpClient.GetFromJsonAsync<TodoItemModel>($"/todos/{Id}");
+                showDeadline = TodoItem.Deadline != null;
+                showDescription = TodoItem.Description != null;
             }            
         }
 
@@ -48,5 +51,9 @@ namespace TodoBlazorWasm.Pages
         {
             NavigationManager.NavigateTo("/");
         }
+
+
+
+        
     }
 }

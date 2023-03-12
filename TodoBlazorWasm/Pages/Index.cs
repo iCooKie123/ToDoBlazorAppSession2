@@ -16,6 +16,8 @@ namespace TodoBlazorWasm.Pages
 
         protected ConfirmationDialog ConfirmationDeleteDialog { get; set; }
 
+        protected QuickAddDialog QuickAddDialog { get; set; }
+
         protected override async Task OnInitializedAsync()
         {
             var array = await HttpClient.GetFromJsonAsync<TodoItemModel[]>("/todos");
@@ -41,6 +43,21 @@ namespace TodoBlazorWasm.Pages
             if (arg)
             {
                 await RemoveTodoItem(_toDelete.Id.Value);
+            }
+        }
+
+        protected async Task QuickAdd()
+        {
+            QuickAddDialog.Show();
+        }
+
+        protected async void OnConfirmationQuickAddTodoClosed(bool arg)
+        {
+            if (arg)
+            {
+                var array = await HttpClient.GetFromJsonAsync<TodoItemModel[]>("/todos");
+                Items = new List<TodoItemModel>(array);
+                this.StateHasChanged();
             }
         }
     }

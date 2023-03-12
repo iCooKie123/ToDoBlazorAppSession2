@@ -4,6 +4,7 @@ using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Owin.Cors;
 using Todo.API.DataProvider;
 using Todo.Shared;
+using Microsoft.EntityFrameworkCore.Design;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -13,7 +14,6 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddScoped<ITodosProvider, TodosDatabaseProvider>();
 builder.Services.AddDbContext<TodoDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("TodoDb")));
-
 builder.Services.AddCors();
 
 var app = builder.Build();

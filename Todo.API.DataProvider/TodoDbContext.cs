@@ -19,7 +19,7 @@ namespace Todo.API.DataProvider
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             base.OnConfiguring(optionsBuilder);
-            //optionsBuilder.UseSqlServer("data source=localhost\\SQLEXPRESS;Initial Catalog=TodoDb;Integrated Security=True;trusted_connection=true;encrypt=false;");
+            
         }
     }
 }

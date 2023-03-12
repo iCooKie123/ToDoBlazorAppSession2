@@ -18,6 +18,17 @@ namespace Todo.Shared
             Id = id;
             Title = title;
             IsDone = isDone;
+            Deadline = null;
+            Description = null;
+        }
+
+        public TodoItemModel(Guid id, string title = "", bool isDone = false, DateTime? date = null, string? desc=null)
+        {
+            Id = id;
+            Title = title;
+            IsDone = isDone;
+            Deadline= date;
+            Description = desc;
         }
 
         public Guid? Id { get; set; }
@@ -27,5 +38,7 @@ namespace Todo.Shared
         public string Title { get; set; }
 
         public bool IsDone { get; set; }
+        public DateTime? Deadline { get; set; }
+        public string? Description { get; set; }
     }
 }

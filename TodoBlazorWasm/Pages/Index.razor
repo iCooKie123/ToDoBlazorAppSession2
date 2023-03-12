@@ -4,23 +4,66 @@
 
 <h1>Hello, person! These are the stuff you have on your list</h1>
 
-Good luck in making them come true!
-
+<p>Good luck in making them come true!</p>
+<p style="color:red">The icon on the description field is hoverable</p>
+<button class="btn btn-success table-btn" @onclick="@(()=> QuickAdd())">
+    Quick Add <i class="fas fa-plus"></i>
+</button>
 <table class="table">
     <thead>
         <tr>
             <th>Title</th>
             <th>Is it done?</th>
-            <td>Actions</td>
+            <th>Deadline</th>
+            <th>Description</th>
+            <th>Actions</th>
+            
         </tr>
     </thead>
     <tbody>
         @foreach (var item in Items)
         {
             <tr>
-                <td>@item.Title</td>
                 <td>
-                    @item.IsDone
+                    @if (item.IsDone)
+                    {
+                        <s>@item.Title</s>
+                    }
+                    else
+                    {
+                        @item.Title
+                    }
+                </td>
+                <td>
+                    @if (item.IsDone)
+                    {
+                        <i class="fas fa-check"></i>
+                    }
+                    else
+                    {
+                        <i class="fas fa-times"></i>
+                    }
+                </td>
+
+                <td>
+                    @if (item.Deadline == null)
+                    {
+                        <s> no deadline</s>
+                    }
+                    else
+                    {
+                        @String.Format("{0:d}", item.Deadline)
+                    }
+                </td>
+                <td>
+                    @if (item.Description == null)
+                    {
+                        <i class="fas fa-info" data-toggle="tooltip" data-placement="top" title="No description"></i>
+                    }
+                    else
+                    {
+                        <i class="fas fa-info" data-toggle="tooltip" data-placement="top" title="@item.Description"></i>
+                    }
                 </td>
                 <td>
                     <a href="@($"todos/{item.Id.ToString()}")" class="btn btn-primary table-btn">
@@ -31,6 +74,9 @@ Good luck in making them come true!
                     </a>
                 </td>
 
+                <td>
+                </td>
+
             </tr>
         }
     </tbody>
@@ -39,6 +85,8 @@ Good luck in making them come true!
 <ConfirmationDialog @ref="ConfirmationDeleteDialog" Title="Confirmation dialog" Content="Are you sure you want to delete this TODO item?"
                     CloseEventCallback="@OnConfirmationDeleteTodoDialogClosed"></ConfirmationDialog>
 
+<QuickAddDialog @ref="QuickAddDialog" Title="QuickAdd dialog" Content="Do you want to quick add a TODO item?"
+                CloseEventCallback="@OnConfirmationQuickAddTodoClosed"></QuickAddDialog>
 <Counter></Counter>
 
 
